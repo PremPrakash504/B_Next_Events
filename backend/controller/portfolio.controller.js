@@ -2,10 +2,10 @@ import db from "../config/db.connect.js";
 
 export const addPortfolio = async (req, res) => {
   try {
-    const { title, category, description } = req.body;
+    const { title, category, description, image } = req.body;
     const imgs = req.files;
 
-    if (!title || !description || !imgs|| imgs ==0) {
+    if (!title || !description || !category || !image) {
       return res.status(400).json({
         message: "Title, description, image is required"
       });
@@ -29,8 +29,6 @@ export const addPortfolio = async (req, res) => {
     });
   }
 };
-
-
 export const getPortfolio = async (req, res) => {
   try {
     const [rows] = await db.query("SELECT * FROM portfolios");

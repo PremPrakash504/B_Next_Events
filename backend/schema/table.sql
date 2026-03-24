@@ -18,5 +18,5 @@ CREATE TABLE portfolios (
     title VARCHAR(255) NOT NULL,
     category VARCHAR(100),
     description TEXT,
-    text VARCHAR(255)
+    image TEXT 
 );
