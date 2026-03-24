@@ -5,16 +5,14 @@ dotenv.config();
 import db from "./config/db.connect.js";
 import cookieParser from "cookie-parser";
 import authrouter from "./routes/authroutes.js";
-import eventRouter from "./routes/siteroutes.js";
-
-dotenv.config();
+import siterouter from "./routes/siteroutes.js";
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api/auth", authrouter);
-app.use("/api/site", eventRouter);
-app.use("/uploads", express.static("uploads"));
+app.use("/api/site",siterouter);
+
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {

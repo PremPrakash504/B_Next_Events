@@ -1,14 +1,10 @@
 import express from "express";
-import { addEvent, getAllEvents, getEventById, updateEvent, deleteEvent } from "../controller/site.controller.js";
-import { isAdmin } from "../middlewares/login.js";
-import upload from "../middlewares/upload.js";
+import { addbook } from "../controller/site.controller.js";
+import { getPortfolio } from "../controller/portfolio.controller.js";
 
-const eventRouter = express.Router();
+const siterouter = express.Router();
+siterouter.post("/addbook", addbook);
+siterouter.get("/getportfolios", getPortfolio);
 
-eventRouter.get("/getallevents", getAllEvents);
-eventRouter.get("/getevent/id/:id", getEventById);
-eventRouter.post("/addevent", isAdmin, upload.single("image"), addEvent);
-eventRouter.put("/updateevent/id/:id", isAdmin, upload.single("image"), updateEvent);
-eventRouter.delete("/deleteevent/id/:id", isAdmin, deleteEvent);
 
-export default eventRouter;
+export default siterouter;
