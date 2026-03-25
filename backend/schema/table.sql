@@ -31,3 +31,12 @@ CREATE TABLE clients_say (
     image VARCHAR(255)
     
 );
+
+CREATE TABLE hero_section (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    subtitle VARCHAR(255),
+    description TEXT,
+    background_image VARCHAR(255)
+    
+);
