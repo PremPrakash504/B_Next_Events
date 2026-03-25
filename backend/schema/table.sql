@@ -20,3 +20,12 @@ CREATE TABLE portfolios (
     description TEXT,
     image TEXT 
 );
+
+CREATE TABLE clients_say (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    designation VARCHAR(255),
+    feedback TEXT NOT NULL,
+    image VARCHAR(255)
+    
+);
