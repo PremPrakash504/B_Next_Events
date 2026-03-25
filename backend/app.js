@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import authrouter from "./routes/authroutes.js";
 import siterouter from "./routes/siteroutes.js";
 import portfoliorouter from "./routes/portfolioroutes.js";
+import clientssayrouter from "./routes/clientssayroutes.js";
 
 const app = express();
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use(cookieParser());
 app.use("/api/auth", authrouter);
 app.use("/api/site",siterouter);
 app.use("/api/portfolio",portfoliorouter);
+app.use("/api/clientssay",clientssayrouter);
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
