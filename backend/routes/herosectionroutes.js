@@ -18,7 +18,7 @@ herosectionrouter.post("/addHeroSection",
 );
 herosectionrouter.get("/getHeroSection", getHeroSection);
 herosectionrouter.delete(
-  "/deleteHeroSection",
+  "/deleteHeroSection/:id",
   isAdmin,
   authorizesRoles("admin"),
   deleteHeroSection,
