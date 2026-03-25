@@ -2,19 +2,25 @@ import express from "express";
 import { isAdmin } from "../middlewares/login.js";
 import { authorizesRoles } from "../middlewares/isAuth.js";
 import {
+  addHeroSection,
+  deleteHeroSection,
   getHeroSection,
-  updateHeroSection,
 } from "../controller/herosection.controller.js";
 import { uploadhero } from "../utils/multerHandler.js";
 
 const herosectionrouter = express.Router();
 
-herosectionrouter.put(
-  "/updateHeroSection",
+herosectionrouter.post("/addHeroSection",
   isAdmin,
   authorizesRoles("admin"),
   uploadhero.single("background_image"),
-  updateHeroSection,
+  addHeroSection,
 );
 herosectionrouter.get("/getHeroSection", getHeroSection);
+herosectionrouter.delete(
+  "/deleteHeroSection",
+  isAdmin,
+  authorizesRoles("admin"),
+  deleteHeroSection,
+);
 export default herosectionrouter;

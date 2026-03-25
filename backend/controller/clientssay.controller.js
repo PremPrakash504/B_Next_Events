@@ -1,4 +1,6 @@
 import db from "../config/db.connect.js";
+import fs from "fs";
+import path from "path";
 export const addClientReview = async (req, res) => {
   try {
     const { name, desigination, feedback, rating } = req.body;
@@ -81,10 +83,28 @@ export const deleteReview = async (req, res) => {
   try {
     const { id } = req.params;
 
+    const [existing] = await db.query(
+      "SELECT * FROM clients_say WHERE id = ?",
+      [id]
+    );
+      if (existing.length === 0) {
+      return res.status(404).json({
+        message: "Review not found",
+      });
+    }
+   const review = existing[0];
+   if (review.image) {
+      const imagePath = path.join(process.cwd(), review.image);
+
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+      }
+    }
+
     await db.query("DELETE FROM clients_say WHERE id = ?", [id]);
 
     res.status(200).json({
-      message: "Review deleted"
+      message: "Review deleted successfully"
     });
 
   } catch (error) {
