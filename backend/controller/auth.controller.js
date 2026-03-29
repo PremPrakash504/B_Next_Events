@@ -6,10 +6,14 @@ export const loginAdmin = async (req, res) => {
   const { email, password } = req.body;
   try {
     if (!email || !password) {
-      return res.status(400).json({ message: "email and password are required" });
+      return res
+        .status(400)
+        .json({ message: "email and password are required" });
     }
 
-    const [rows] = await db.execute("SELECT * FROM admin WHERE email = ?", [email]);
+    const [rows] = await db.execute("SELECT * FROM admin WHERE email = ?", [
+      email,
+    ]);
 
     if (rows.length === 0) {
       return res.status(404).json({ message: "User not found" });
@@ -25,11 +29,15 @@ export const loginAdmin = async (req, res) => {
     const token = jwt.sign(
       { id: admin.id, email: admin.email, role: "admin" },
       process.env.JWT_SECRET,
-      { expiresIn: process.env.EXPIRE }
+      { expiresIn: process.env.EXPIRE },
     );
 
-    res.cookie("token", token, { httpOnly: true, secure: false, maxAge: 7 * 24 * 60 * 60 * 1000 });
-    res.json({ message: "Login successful", token });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+    });
+    res.json({ message: "Login successful" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
