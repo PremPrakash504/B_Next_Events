@@ -25,7 +25,7 @@ const fileFilter = (req, file, cb) => {
 export const upload = multer({
   storage: portfoliostorage,
   fileFilter,
-  limits: { fileSize: 5 * 1024 * 1024 },
+  limits: { fileSize: 50 * 1024 * 1024 },
 });
 
 const clientssaystorage = multer.diskStorage({
@@ -37,7 +37,7 @@ const clientssaystorage = multer.diskStorage({
 export const uploadSingle = multer({
   storage: clientssaystorage,
   fileFilter,
-  limits: { fileSize: 5 * 1024 * 1024 },
+  limits: { fileSize: 50 * 1024 * 1024 },
 });
 
 const herosectionstorage = multer.diskStorage({
@@ -49,5 +49,15 @@ const herosectionstorage = multer.diskStorage({
 export const uploadhero = multer({
   storage: herosectionstorage,
   fileFilter,
-  limits: { fileSize: 5 * 1024 * 1024 },
+  limits: { fileSize: 50 * 1024 * 1024 },
 });
+
+export const multerErrorHandler = (err, req, res, next) => {
+  if (err.code === "LIMIT_FILE_SIZE") {
+    return res.status(400).json({ message: "File too large. Max size is 10MB" });
+  }
+  if (err.message) {
+    return res.status(400).json({ message: err.message });
+  }
+  next(err);
+};

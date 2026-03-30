@@ -12,13 +12,20 @@ CREATE TABLE booknow (
   service_required VARCHAR(255),
   message TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+CREATE TABLE category (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(255) NOT NULL
+);
 );
 CREATE TABLE portfolios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    category VARCHAR(100),
+    category_id INT,
     description TEXT,
     image TEXT 
+    FOREIGN KEY (category_id) REFERENCES category(id)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE clients_say (

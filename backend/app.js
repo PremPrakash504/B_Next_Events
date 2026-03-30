@@ -10,6 +10,8 @@ import portfoliorouter from "./routes/portfolioroutes.js";
 import clientssayrouter from "./routes/clientssayroutes.js";
 import herosectionrouter from "./routes/herosectionroutes.js";
 
+import { multerErrorHandler } from "./utils/multerHandler.js";
+
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
@@ -18,6 +20,7 @@ app.use("/api/site",siterouter);
 app.use("/api/portfolio",portfoliorouter);
 app.use("/api/clientssay",clientssayrouter);
 app.use("/api/herosection",herosectionrouter);
+app.use(multerErrorHandler);
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
