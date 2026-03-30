@@ -27,7 +27,7 @@ CREATE TABLE clients_say (
     designation VARCHAR(255),
     feedback TEXT NOT NULL,
     rating INT CHECK (rating >= 1 AND rating <= 5) DEFAULT 5,
-     status ENUM('pending','approved','rejected') DEFAULT 'pending',
+    status ENUM('pending','approved','rejected') DEFAULT 'pending',
     image VARCHAR(255)
     
 );

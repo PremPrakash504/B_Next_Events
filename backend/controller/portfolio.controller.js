@@ -9,16 +9,14 @@ export const addPortfolio = async (req, res) => {
     if (!title || !description || !category || !imgs || imgs.length === 0) {
       return res.status(400).json({
         message: "Title, description, image is required",
-      });
+      })
     }
 
     const imagePaths = imgs.map((f) => f.path).join(",");
     
-
-    // image should be auto compress if size is more than 3mb. use sharp package.
-      if (req.file) {
-  await compressImage(req.file.path);
-}
+      if (req.file) { 
+      await compressImage(req.file.path);
+      }
     await db.query(
       "INSERT INTO portfolios (title, category, description, image) VALUES (?, ?, ?, ?)",
       [title, category, description, imagePaths],
