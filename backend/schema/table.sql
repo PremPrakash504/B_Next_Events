@@ -23,6 +23,7 @@ CREATE TABLE portfolios (
     title VARCHAR(255) NOT NULL,
     category_id INT,
     description TEXT,
+    details TEXT,
     image TEXT 
     FOREIGN KEY (category_id) REFERENCES category(id)
     ON DELETE CASCADE
