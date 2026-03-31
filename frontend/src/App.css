@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-gold: #D4AF37; /* Keep this or adjust to match image */
+  --color-brand-gold-light: #F4E4A6; /* Lighter gold for secondary text */
+  --color-brand-gold-dark: #B8860B; /* Darker gold for hover states */
+  --color-brand-black: #000000; /* Pure black */
+  --color-brand-gray-dark: #121212; /* Slightly off-black */
+  
+  /* Keep your accent colors as is */
+  --color-brand-orange: #FF4500;
+  --color-brand-yellow: #FFD700;
+}
