@@ -1,6 +1,20 @@
-import { FaArrowRight, FaStar } from "react-icons/fa";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchHero } from "../redux/features/heroSlice";
+import { FaArrowRight } from "react-icons/fa";
 import modeling from "../assets/hero.jpg";
+
 const Hero = () => {
+  const dispatch = useDispatch();
+  const { data, loading, error } = useSelector((state) => state.hero);
+
+  useEffect(() => {
+    dispatch(fetchHero());
+  }, [dispatch]);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+  const heroData = data ? data[0] : null;
+  const backgroundImage = heroData ? `url(${heroData.imageUrl})` : modeling;
   return (
     <section
       id="home"
