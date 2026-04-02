@@ -28,7 +28,7 @@ const Testimonials = () => {
             >
               <div className="flex items-center mb-6">
                 <img
-                  src={`http://localhost:5000/${testimonial.image.replace(/\\/g, '/')}`}
+                  src={testimonial.image ? `http://localhost:5000/${testimonial.image.replace(/\\/g, '/')}` : ''}
                   alt={testimonial.name}
                   className="w-16 h-16 rounded-full object-cover mr-4"
                 />
