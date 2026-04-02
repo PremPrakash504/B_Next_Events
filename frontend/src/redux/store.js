@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import heroReducer from './features/heroSlice'
+import { indexSlice } from './features/indexSlice'
 
 export const store = configureStore({
   reducer: {
-    hero: heroReducer,
+    [indexSlice.reducerPath]: indexSlice.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(indexSlice.middleware),
 })

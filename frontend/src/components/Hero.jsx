@@ -1,26 +1,21 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchHero } from "../redux/features/heroSlice";
+import { useGetHeroQuery } from "../redux/features/heroSlice";
 import { FaArrowRight } from "react-icons/fa";
 import modeling from "../assets/hero.jpg";
 
 const Hero = () => {
-  const dispatch = useDispatch();
-  const { data, loading, error } = useSelector((state) => state.hero);
-
-  useEffect(() => {
-    dispatch(fetchHero());
-  }, [dispatch]);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
-  const heroData = data ? data[0] : null;
-  const backgroundImage = heroData ? `url(${heroData.imageUrl})` : modeling;
+  const { data, isLoading, isError } = useGetHeroQuery();
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error loading data</p>;
+  const heroData = data?.data?.[0];
+  const backgroundImage = heroData?.background_image
+    ? `http://localhost:5000/uploads/herosection/${heroData.background_image}`
+    : modeling;
   return (
     <section
       id="home"
       className="relative min-h-screen flex items-center"
       style={{
-        backgroundImage: `url(${modeling})`,
+        backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -29,18 +24,16 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black/50"></div>
       <div className="absolute bottom-8 left-4 sm:left-8 px-4 sm:px-0">
         <div className="inline-flex items-center text-brand-gold px-2 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium">
-          Nepal's Premier Modeling & Events Company
+          {heroData?.subtitle || "Nepal's Premier Modeling & Events Company"}
         </div>
         <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-bold text-white leading-tight font-serif">
-          Elevate Your
+          {heroData?.title || "Elevate Your"}
           <span className="bg-gradient-to-r from-brand-gold to-brand-yellow bg-clip-text text-transparent">
-            {" "}
-            Events
+            {" "}Events
           </span>
         </h1>
         <p className="text-sm sm:text-lg md:text-xl text-brand-gold-light leading-relaxed max-w-xl sm:max-w-2xl">
-          Professional modeling services and exceptional event management across
-          Nepal. We bring your vision to life with elegance and precision.
+          {heroData?.description || "Professional modeling services and exceptional event management across Nepal. We bring your vision to life with elegance and precision."}
         </p>
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-3">
           <a

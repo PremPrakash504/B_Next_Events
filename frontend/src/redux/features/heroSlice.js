@@ -1,26 +1,11 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
+import { indexSlice } from './indexSlice'
 
-export const fetchHero = createAsyncThunk('hero/fetch', async () => {
-  const res = await axios.get('http://localhost:5000/api/herosection/getHeroSection')
-  return res.data
+export const heroApiSlice = indexSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    getHero: builder.query({
+      query: () => '/herosection/getHeroSection',
+    }),
+  }),
 })
 
-const heroSlice = createSlice({
-  name: 'hero',
-  initialState: { data: null, loading: false, error: null },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchHero.pending, (state) => { state.loading = true })
-      .addCase(fetchHero.fulfilled, (state, action) => {
-        state.loading = false
-        state.data = action.payload
-      })
-      .addCase(fetchHero.rejected, (state, action) => {
-        state.loading = false
-        state.error = action.error.message
-      })
-  },
-})
-
-export default heroSlice.reducer
+export const { useGetHeroQuery } = heroApiSlice;

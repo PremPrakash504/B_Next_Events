@@ -1,43 +1,11 @@
 import { FaExternalLinkAlt } from "react-icons/fa";
-import blog1 from "../assets/blog/blog.jpg";
-import blog2 from "../assets/blog/blog2.jpg";
-import blog3 from "../assets/blog/blog3.jpg";
-import blog4 from "../assets/blog/blog4.jpg";
-import blog5 from "../assets/blog/blog5.jpg";
-import blog6 from "../assets/blog/blog6.jpg";
+import { useGetPortfolioQuery } from "../redux/features/portfolioSlice";
+
 const Portfolio = () => {
-  const portfolioItems = [
-    {
-      title: "Next Model Season-1 Program",
-      category: "Fashion Show",
-      image: blog1,
-    },
-    {
-      title: "Next Model Season-1 Program",
-      category: "Event Management",
-      image: blog2,
-    },
-    {
-      title: "Next Model Season-1 Program",
-      category: "Commercial Modeling",
-      image: blog3,
-    },
-    {
-      title: "Next Model Season-1 Program",
-      category: "Wedding Events",
-      image: blog4,
-    },
-    {
-      title: "Next Model Season-1 Program",
-      category: "Competition Event",
-      image: blog5,
-    },
-    {
-      title: "Next Model Season-1 Program",
-      category: "Photography",
-      image: blog6,
-    },
-  ];
+  const { data, isLoading, isError } = useGetPortfolioQuery();
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error occurred</div>;
+  const portfolioItems = data?.data || [];
 
   return (
     <section
@@ -62,7 +30,7 @@ const Portfolio = () => {
               className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300"
             >
               <img
-                src={item.image}
+                src={`http://localhost:5000/${item.image.split(',')[0].replace(/\\/g, '/')}`}
                 alt={item.title}
                 className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
               />

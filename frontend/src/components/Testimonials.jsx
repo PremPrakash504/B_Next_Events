@@ -1,34 +1,11 @@
 import { FaStar, FaQuoteLeft } from "react-icons/fa";
-import img1 from "../assets/testimonials/img1.jpg";
-import img2 from "../assets/testimonials/img2.jpg";
-import img3 from "../assets/testimonials/img3.jpg";
+import { useGetTestimonialsQuery } from "../redux/features/testimonialsSlice";
+
 const Testimonials = () => {
-  const testimonials = [
-    {
-      name: "Priya Sharma",
-      role: "Fashion Designer",
-      image: img1,
-      content:
-        "B Next Events Nepal transformed our fashion show into an unforgettable experience. Their professionalism and attention to detail exceeded our expectations.",
-      rating: 5,
-    },
-    {
-      name: "Rajesh Maharjan",
-      role: "Corporate Executive",
-      image: img2,
-      content:
-        "Outstanding event management! They handled our product launch flawlessly. The team's creativity and execution were simply perfect.",
-      rating: 5,
-    },
-    {
-      name: "Anita Gurung",
-      role: "Bride",
-      image: img3,
-      content:
-        "Our wedding was magical thanks to B Next Events Modal. They made our special day absolutely perfect with their elegant coordination and beautiful models.",
-      rating: 5,
-    },
-  ];
+  const { data, isLoading, isError } = useGetTestimonialsQuery();
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error occurred</div>;
+  const testimonials = data || [];
 
   return (
     <section className="py-20 bg-gradient-to-br from-brand-black to-brand-gray-dark">
@@ -51,7 +28,7 @@ const Testimonials = () => {
             >
               <div className="flex items-center mb-6">
                 <img
-                  src={testimonial.image}
+                  src={`http://localhost:5000/${testimonial.image.replace(/\\/g, '/')}`}
                   alt={testimonial.name}
                   className="w-16 h-16 rounded-full object-cover mr-4"
                 />
@@ -59,7 +36,7 @@ const Testimonials = () => {
                   <h4 className="text-lg font-bold text-brand-gold">
                     {testimonial.name}
                   </h4>
-                  <p className="text-brand-gold-light">{testimonial.role}</p>
+                  <p className="text-brand-gold-light">{testimonial.designation}</p>
                 </div>
               </div>
 
@@ -74,7 +51,7 @@ const Testimonials = () => {
 
               <FaQuoteLeft className="h-8 w-8 text-brand-gold mb-4" />
               <p className="text-brand-gold-light leading-relaxed italic">
-                "{testimonial.content}"
+                                "{testimonial.feedback}"
               </p>
             </div>
           ))}
