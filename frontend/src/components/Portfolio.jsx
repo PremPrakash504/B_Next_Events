@@ -30,7 +30,7 @@ const Portfolio = () => {
               className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300"
             >
               <img
-                src={`http://localhost:5000/${item.image.split(',')[0].replace(/\\/g, '/')}`}
+                src={`${import.meta.env.VITE_BASE_URL}/${item.image.split(',')[0].replace(/\\/g, '/')}`}
                 alt={item.title}
                 className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500"
               />

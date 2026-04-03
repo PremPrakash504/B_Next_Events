@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+html, body {
+  overflow-x: hidden;
+}
+
 @theme {
   --color-brand-gold: #D4AF37; /* Keep this or adjust to match image */
   --color-brand-gold-light: #F4E4A6; /* Lighter gold for secondary text */

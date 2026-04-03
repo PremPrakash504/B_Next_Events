@@ -8,7 +8,8 @@ const Hero = () => {
   if (isError) return <p>Error loading data</p>;
   const heroData = data?.data?.[0];
   const backgroundImage = heroData?.background_image
-    ? `http://localhost:5000/uploads/herosection/${heroData.background_image}`
+    ? `${import.meta.env.VITE_BASE_URL}/uploads/herosection/${heroData.background_image}`
+
     : modeling;
   return (
     <section

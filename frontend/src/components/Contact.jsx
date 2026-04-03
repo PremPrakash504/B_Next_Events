@@ -6,19 +6,27 @@ import {
   FaClock,
   FaPaperPlane,
 } from "react-icons/fa";
+import { useSendContactMutation } from "../redux/features/contactSlice";
 
 const Contact = () => {
+
+  const [sendContact, {isLoading, isSuccess, reset}] = useSendContactMutation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    service: "",
+    service_required: "",
     message: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
+    const payload = { full_name: formData.name, email: formData.email, phone: formData.phone, service_required: formData.service_required, message: formData.message };
+    const result = await sendContact(payload);
+    if (!result.error) {
+      setFormData({ name: "", email: "", phone: "", service_required: "", message: "" });
+      setTimeout(() => reset(), 3000);
+    }
   };
 
   const handleChange = (e) => {
@@ -164,6 +172,7 @@ const Contact = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full px-4 py-2 rounded-lg border border-brand-gold/30 bg-brand-gray-dark text-white focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all duration-200"
+                    required
                   />
                 </div>
                 <div>
@@ -171,8 +180,8 @@ const Contact = () => {
                     Service Required
                   </label>
                   <select
-                    name="service"
-                    value={formData.service}
+                    name="service_required"
+                    value={formData.service_required}
                     onChange={handleChange}
                     className="w-full px-4 py-2 rounded-lg border border-brand-gold/30 bg-brand-gray-dark text-white focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all duration-200"
                     required
@@ -205,11 +214,14 @@ const Contact = () => {
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-brand-orange to-brand-yellow text-brand-black px-8 py-3 rounded-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group font-semibold"
+                disabled={isLoading}
+                className="w-full bg-gradient-to-r from-brand-orange to-brand-yellow text-brand-black px-8 py-3 rounded-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group font-semibold disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Send Message
+                {isLoading ? "Sending..." : "Send Message"}
                 <FaPaperPlane className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </button>
+              {isSuccess && <p className="text-green-400 text-center">Message sent successfully!</p>}
+
             </form>
           </div>
         </div>
