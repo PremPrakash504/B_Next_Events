@@ -9,17 +9,24 @@ import siterouter from "./routes/siteroutes.js";
 import portfoliorouter from "./routes/portfolioroutes.js";
 import clientssayrouter from "./routes/clientssayroutes.js";
 import herosectionrouter from "./routes/herosectionroutes.js";
-
+import cors from "cors";
 import { multerErrorHandler } from "./utils/multerHandler.js";
 
 const app = express();
 app.use(express.json());
+app.use('/uploads', express.static('uploads'));
 app.use(cookieParser());
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "http://localhost:5174"],
+    credentials: true,
+  }),
+);
 app.use("/api/auth", authrouter);
-app.use("/api/site",siterouter);
-app.use("/api/portfolio",portfoliorouter);
-app.use("/api/clientssay",clientssayrouter);
-app.use("/api/herosection",herosectionrouter);
+app.use("/api/site", siterouter);
+app.use("/api/portfolio", portfoliorouter);
+app.use("/api/clientssay", clientssayrouter);
+app.use("/api/herosection", herosectionrouter);
 app.use(multerErrorHandler);
 const PORT = process.env.PORT || 5000;
 
