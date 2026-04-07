@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FiMenu, FiX, FiCalendar, FiUsers } from "react-icons/fi";
+import { FiMenu, FiX } from "react-icons/fi";
 import logo from "../assets/logo.png";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,9 +36,19 @@ const Header = () => {
                 {item.name}
               </a>
             ))}
-            <button className="bg-gradient-to-r from-brand-orange to-brand-yellow text-brand-black px-6 py-2 rounded-full hover:shadow-lg transition-all duration-200 font-semibold">
+            <a
+              href="#contact"
+              className="bg-gradient-to-r from-brand-orange to-brand-yellow text-brand-black px-6 py-2 rounded-full hover:shadow-lg transition-all duration-200 font-semibold"
+            >
               Book Now
-            </button>
+            </a>
+            <a
+              href="http://localhost:5174"
+              target="_blank"
+              className="bg-gradient-to-r from-brand-orange to-brand-yellow text-brand-black px-6 py-2 rounded-full hover:shadow-lg transition-all duration-200 font-semibold"
+            >
+              Login
+            </a>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -68,9 +78,20 @@ const Header = () => {
                   {item.name}
                 </a>
               ))}
-              <button className="bg-gradient-to-r from-brand-orange to-brand-yellow text-brand-black px-6 py-2 rounded-full mt-4 hover:shadow-lg transition-all duration-200 font-semibold">
+              <a
+                href="#contact"
+                onClick={() => setIsMenuOpen(false)}
+                className="bg-gradient-to-r from-brand-orange to-brand-yellow text-brand-black px-6 py-2 rounded-full mt-4 hover:shadow-lg transition-all duration-200 font-semibold text-center"
+              >
                 Book Now
-              </button>
+              </a>
+              <a
+                href="http://localhost:5174"
+                target="_blank"
+                className="bg-gradient-to-r from-brand-orange to-brand-yellow text-brand-black px-6 py-2 rounded-full mt-4 hover:shadow-lg transition-all duration-200 font-semibold text-center"
+              >
+                Login
+              </a>
             </nav>
           </div>
         )}
