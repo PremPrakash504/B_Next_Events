@@ -1,1 +1,22 @@
 @import "tailwindcss";
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #000000;
+}
+
+@theme {
+  --color-brand-gold: #FFD700;
+  --color-brand-gold-light: #FFD700;
+  --color-brand-gold-dark: #e6c200;
+  --color-brand-black: #000000;
+  --color-brand-gray-dark: #121212;
+  --color-brand-orange: #ff4500;
+  --color-brand-yellow: #FFD700;
+}
