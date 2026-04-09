@@ -9,8 +9,9 @@ import {
 import { useSendContactMutation } from "../redux/features/contactSlice";
 
 const Contact = () => {
+  const [sendContact, { isLoading, isSuccess, reset }] =
+    useSendContactMutation();
 
-  const [sendContact, {isLoading, isSuccess, reset}] = useSendContactMutation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -21,10 +22,22 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const payload = { full_name: formData.name, email: formData.email, phone: formData.phone, service_required: formData.service_required, message: formData.message };
+    const payload = {
+      full_name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      service_required: formData.service_required,
+      message: formData.message,
+    };
     const result = await sendContact(payload);
     if (!result.error) {
-      setFormData({ name: "", email: "", phone: "", service_required: "", message: "" });
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        service_required: "",
+        message: "",
+      });
       setTimeout(() => reset(), 3000);
     }
   };
@@ -220,8 +233,11 @@ const Contact = () => {
                 {isLoading ? "Sending..." : "Send Message"}
                 <FaPaperPlane className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </button>
-              {isSuccess && <p className="text-green-400 text-center">Message sent successfully!</p>}
-
+              {isSuccess && (
+                <p className="text-green-400 text-center">
+                  Message sent successfully!
+                </p>
+              )}
             </form>
           </div>
         </div>
