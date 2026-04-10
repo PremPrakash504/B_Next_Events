@@ -85,7 +85,7 @@ const AdminLogin = () => {
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 className="w-full bg-brand-black border border-brand-gold/50 rounded-lg px-4 py-3 text-brand-gold-light placeholder-brand-gold/50 focus:outline-none focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/30 transition backdrop-blur-sm"
-                placeholder="admin@example.com"
+                placeholder="Enter email here"
               />
             </div>
             <div>
@@ -98,7 +98,7 @@ const AdminLogin = () => {
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
                 className="w-full bg-brand-black border border-brand-gold/50 rounded-lg px-4 py-3 text-brand-gold-light placeholder-brand-gold/50 focus:outline-none focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/30 transition backdrop-blur-sm"
-                placeholder="••••••••"
+                placeholder="Enter password here"
               />
             </div>
             {error && <p className="text-red-400 text-sm">{error}</p>}

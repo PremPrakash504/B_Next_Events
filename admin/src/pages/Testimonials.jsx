@@ -35,9 +35,7 @@ const Testimonials = () => {
           <h1 className="text-3xl font-bold font-serif text-brand-gold">Client Testimonials</h1>
           <p className="text-white font-bold mt-1">Moderate and manage client reviews</p>
         </div>
-        <div className="font-bold text-brand-gold border border-brand-gold/30 px-4 py-2 rounded-full">
-          {reviews.filter((r) => r.status === "pending").length} Pending
-        </div>
+        
       </div>
 
       {/* Filter Tabs */}

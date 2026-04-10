@@ -52,7 +52,7 @@ const Bookings = () => {
           <h1 className="text-3xl font-bold font-serif text-brand-gold">Bookings</h1>
           <p className="text-white font-bold mt-1">Manage service booking requests</p>
         </div>
-        <div className="font-bold text-brand-gold border border-brand-gold/30 px-4 py-2 rounded-full">{bookings.length} Total</div>
+       
       </div>
 
       {/* Search & Filter */}
@@ -90,9 +90,13 @@ const Bookings = () => {
                     <td className="px-6 py-4 text-white font-bold">{booking.phone}</td>
                     <td className="px-6 py-4">
                       <div className="relative inline-block">
-                        <button onClick={() => setStatusDropdown(statusDropdown === booking.id ? null : booking.id)} className="px-3 py-1 rounded-full text-xs font-bold cursor-pointer border border-brand-gold/40 text-brand-gold hover:bg-brand-gold/10 transition">
-                          {statusLabel(booking.status)} v
-                        </button>
+                        <button
+  onClick={() => setStatusDropdown(statusDropdown === booking.id ? null : booking.id)}
+  className="px-3 py-1 rounded-full text-xs font-bold cursor-pointer border border-brand-gold/40 text-brand-gold hover:bg-brand-gold/10 transition flex items-center gap-1"
+>
+  {statusLabel(booking.status)}
+  <span className="text-[10px]">▼</span>
+</button>
                         {statusDropdown === booking.id && (
                           <div className="absolute left-0 mt-2 w-36 bg-black border border-brand-gold/30 rounded-xl shadow-lg z-50">
                             {["pending", "approved", "rejected"].map((s) => (

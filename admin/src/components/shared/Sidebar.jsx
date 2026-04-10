@@ -16,9 +16,13 @@ const Sidebar = () => {
 
   return (
     <div className="w-64 min-h-screen bg-brand-black border-r border-brand-gold/20 flex flex-col p-4">
-      <h2 className="text-xl font-bold font-serif text-brand-gold mb-1">B Next Events</h2>
+      <h2 className="text-xl font-bold font-serif text-brand-gold mb-1">
+        B Next Events
+      </h2>
       <p className="text-xs text-brand-gold/50 mb-8">Admin Panel</p>
-      <nav className="flex flex-col gap-1 flex-1">
+
+      {/* nav bata flex-1 hataiyo */}
+      <nav className="flex flex-col gap-1">
         {links.map((link) => (
           <NavLink
             key={link.path}
@@ -35,9 +39,11 @@ const Sidebar = () => {
           </NavLink>
         ))}
       </nav>
+
+     z
       <button
         onClick={() => dispatch(clearUser())}
-        className="mt-auto px-4 py-2.5 border border-brand-gold/30 text-white font-bold rounded-lg hover:bg-brand-gold/10 hover:text-brand-gold transition text-sm"
+        className="mt-10 px-4 py-2.5 border border-brand-gold/30 text-white font-bold rounded-lg hover:bg-brand-gold/10 hover:text-brand-gold transition text-sm"
       >
         Logout
       </button>
