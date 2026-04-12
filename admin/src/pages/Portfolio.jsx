@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useGetPortfoliosQuery, useAddPortfolioMutation, useUpdatePortfolioMutation, useDeletePortfolioMutation, useGetCategoriesQuery } from "../redux/indexSlice";
+import { toast } from "react-toastify";
 
 const inputCls = "w-full px-4 py-2 bg-black border border-brand-gold/30 rounded-lg text-white font-bold placeholder-white/40 focus:outline-none focus:border-brand-gold transition";
 const labelCls = "block text-sm font-bold text-brand-gold mb-1";
@@ -34,14 +35,14 @@ const Portfolio = () => {
     try {
       if (editingPortfolio) {
         await updatePortfolio({ id: editingPortfolio.id, formData: formPayload }).unwrap();
-        alert("Portfolio updated!");
+        toast.success("Portfolio updated!");
       } else {
         await addPortfolio(formPayload).unwrap();
-        alert("Portfolio added!");
+        toast.success("Portfolio added!");
       }
       setShowModal(false);
       resetForm();
-    } catch (error) { alert("Error: " + error.message); }
+    } catch (error) { toast.error("Error: " + error.message); }
   };
 
   const handleEdit = (portfolio) => {
@@ -52,8 +53,8 @@ const Portfolio = () => {
 
   const handleDelete = async (id) => {
     if (window.confirm("Delete this portfolio item?")) {
-      try { await deletePortfolio(id).unwrap(); alert("Deleted!"); }
-      catch (error) { alert("Error: " + error.message); }
+      try { await deletePortfolio(id).unwrap(); toast.success("Deleted!"); }
+      catch (error) { toast.error("Error: " + error.message); }
     }
   };
 

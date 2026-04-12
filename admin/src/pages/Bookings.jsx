@@ -31,18 +31,18 @@ const Bookings = () => {
     try {
       await updateBooking({ id: editingId, full_name: editForm.full_name, email: editForm.email, phone: editForm.phone, service_required: editForm.service_required, message: editForm.message }).unwrap();
       setEditingId(null); setEditForm({});
-      alert("Booking updated!");
-    } catch (err) { alert("Failed: " + err?.data?.message); }
+      <toast className="success">Booking updated!</toast>
+    } catch (err) { <toast className="error">Failed: " + err?.data?.message</toast>; }
   };
 
   const handleStatusChange = async (id, status) => {
-    try { await updateBookingStatus({ id, status }).unwrap(); setStatusDropdown(null); alert(`Booking ${status}!`); }
-    catch (err) { alert("Failed: " + err?.data?.message); }
+    try { await updateBookingStatus({ id, status }).unwrap(); setStatusDropdown(null); <toast className="success">Booking {status}!</toast>; }
+    catch (err) { <toast className="error">Failed: " + err?.data?.message</toast>; }
   };
 
   const handleDelete = async (id) => {
-    try { await deleteBooking(id).unwrap(); setDeleteId(null); alert("Deleted!"); }
-    catch (err) { alert("Failed: " + err?.data?.message); }
+    try { await deleteBooking(id).unwrap(); setDeleteId(null); <toast className="success">Booking deleted!</toast>; }
+    catch (err) { <toast className="error">Failed: " + err?.data?.message</toast>; }
   };
 
   return (

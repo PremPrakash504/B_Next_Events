@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useGetHeroSectionsQuery, useAddHeroSectionMutation, useUpdateHeroSectionMutation, useDeleteHeroSectionMutation } from "../redux/indexSlice";
+import { toast } from "react-toastify";
 
 const inputCls = "w-full px-4 py-2 bg-black border border-brand-gold/30 rounded-lg text-white font-bold placeholder-white/40 focus:outline-none focus:border-brand-gold transition";
 const labelCls = "block text-sm font-bold text-brand-gold mb-1";
@@ -38,13 +39,13 @@ const HeroSection = () => {
     try {
       if (editingHero) {
         await updateHeroSection({ id: editingHero.id, formData: formPayload }).unwrap();
-        alert("Updated!");
+        toast.success("Updated!");
       } else {
         await addHeroSection(formPayload).unwrap();
-        alert("Added!");
+        toast.success("Added!");
       }
       closeModal();
-    } catch (err) { alert("Failed: " + err?.data?.message); }
+    } catch (err) { toast.error("Failed: " + err?.data?.message); }
   };
 
   const handleEdit = (hero) => {
@@ -54,7 +55,7 @@ const HeroSection = () => {
   };
 
   const handleDelete = async (id) => {
-    try { await deleteHeroSection(id).unwrap(); setDeleteId(null); alert("Deleted!"); }
+    try { await deleteHeroSection(id).unwrap(); setDeleteId(null); toast.success("Deleted!"); }
     catch (err) { alert("Failed: " + err?.data?.message); }
   };
 

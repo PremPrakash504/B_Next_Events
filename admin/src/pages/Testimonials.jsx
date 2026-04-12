@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useGetAllTestimonialsForAdminQuery, useUpdateReviewStatusMutation, useDeleteReviewMutation } from "../redux/indexSlice";
+import { toast } from "react-toastify";
 
 const statusLabel = (s) => ({ pending: "Pending", approved: "Approved", rejected: "Rejected" }[s] || s);
 
@@ -14,18 +15,18 @@ const Testimonials = () => {
   const filteredReviews = filter === "all" ? reviews : reviews.filter((r) => r.status === filter);
 
   const handleApprove = async (id) => {
-    try { await updateReviewStatus({ id, status: "approved" }).unwrap(); alert("Approved!"); }
-    catch (err) { alert("Failed: " + err?.data?.message); }
+    try { await updateReviewStatus({ id, status: "approved" }).unwrap(); toast.success("Approved!"); }
+    catch (err) { toast.error("Failed: " + err?.data?.message); }
   };
 
   const handleReject = async (id) => {
-    try { await updateReviewStatus({ id, status: "rejected" }).unwrap(); alert("Rejected!"); }
-    catch (err) { alert("Failed: " + err?.data?.message); }
+    try { await updateReviewStatus({ id, status: "rejected" }).unwrap(); toast.error("Rejected!"); }
+    catch (err) { toast.error("Failed: " + err?.data?.message); }
   };
 
   const handleDelete = async (id) => {
-    try { await deleteReview(id).unwrap(); setDeleteId(null); alert("Deleted!"); }
-    catch (err) { alert("Failed: " + err?.data?.message); }
+    try { await deleteReview(id).unwrap(); setDeleteId(null); toast.success("Deleted!"); }
+    catch (err) { toast.error("Failed: " + err?.data?.message); }
   };
 
   return (

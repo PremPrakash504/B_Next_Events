@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { clearUser } from "../redux/authState";
+import { toast } from "react-toastify";
 
 const inputCls = "w-full px-4 py-2 bg-black border border-brand-gold/30 rounded-lg text-white font-bold placeholder-white/40 focus:outline-none focus:border-brand-gold transition";
 const labelCls = "block text-sm font-bold text-brand-gold mb-1";
@@ -25,12 +26,12 @@ const Settings = () => {
 
   const handleChangePassword = () => {
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      alert("Passwords don't match!");
+      toast.error("Passwords don't match!");
       return;
     }
     setShowPasswordForm(false);
     setPasswordData({ currentPassword: "", newPassword: "", confirmPassword: "" });
-    alert("Password changed successfully!");
+    toast.success("Password changed successfully!");
   };
 
   return (
@@ -65,7 +66,7 @@ const Settings = () => {
                 <button onClick={() => setEditMode(true)} className="bg-brand-gold text-black px-5 py-2 rounded-full font-bold hover:opacity-80 transition">Edit Profile</button>
               ) : (
                 <>
-                  <button onClick={() => { setEditMode(false); alert("Profile updated!"); }} className="bg-brand-gold text-black px-5 py-2 rounded-full font-bold hover:opacity-80 transition">Save</button>
+                  <button onClick={() => { setEditMode(false); toast.success("Profile updated!"); }} className="bg-brand-gold text-black px-5 py-2 rounded-full font-bold hover:opacity-80 transition">Save</button>
                   <button onClick={() => setEditMode(false)} className="border border-brand-gold/30 text-white px-5 py-2 rounded-full font-bold hover:bg-white/5 transition">Cancel</button>
                 </>
               )}
@@ -98,7 +99,12 @@ const Settings = () => {
             <h3 className="text-xl font-bold text-brand-gold mb-3">Logout</h3>
             <p className="text-white font-bold mb-6">Click below to logout from your account.</p>
             <button
-              onClick={() => { if (confirm("Are you sure you want to logout?")) { dispatch(clearUser()); navigate("/"); } }}
+              onClick={() => { 
+  if (window.confirm("Are you sure you want to logout?")) { 
+    dispatch(clearUser()); 
+    navigate("/"); 
+  } 
+}}
               className="border border-brand-gold/30 text-white px-8 py-2.5 rounded-full font-bold hover:bg-white/5 hover:text-brand-gold transition"
             >
               Logout
